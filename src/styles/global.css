@@ -1,5 +1,5 @@
 /* nav styles */
-.hamburger {
+/* .hamburger {
   padding-right: 20px;
   cursor: pointer;
 }
@@ -37,9 +37,9 @@
 
 .expanded {
   display: unset;
-}
+} */
 
-@media screen and (min-width: 636px) {
+/* @media screen and (min-width: 636px) {
   .nav-links {
     margin-left: 5em;
     display: block;
@@ -56,13 +56,13 @@
   .hamburger {
     display: none;
   }
-}
+} */
 
-html.dark {
+/* html.dark {
   background-color: #0d0950;
   color: #fff;
 }
 
 .dark .nav-links a {
   color: #fff;
-}
+} */
