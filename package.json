@@ -1,0 +1,21 @@
+{
+  "name": "learning-astro-blog",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "engines": {
+    "node": "^20.0.0 || >=22.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.12.1",
+    "typescript": "^5.8.2"
+  }
+}

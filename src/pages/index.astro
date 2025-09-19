@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lessons = [
+  {
+    title: 'Set up the workspace',
+    description: 'Initialize Astro with pnpm so future lessons focus on features rather than tooling.',
+  },
+  {
+    title: 'Study the reference theme',
+    description: 'Read through references/astro-antfustyle-theme to understand the structure we will re-create.',
+  },
+  {
+    title: 'Ship lesson-sized improvements',
+    description: 'Tackle three-to-five files at a time so each change stays approachable.',
+  },
+];
+---
+<BaseLayout
+  title="Welcome"
+  description="A clean starting point for learning Astro step by step."
+>
+  <section class="hero" aria-labelledby="page-title">
+    <h1 id="page-title">Learning Astro Blog</h1>
+    <p class="lead">
+      Welcome! This workspace starts simple on purpose so we can rebuild the
+      <code>astro-antfustyle-theme</code> piece by piece.
+    </p>
+    <section class="callout" aria-label="Next steps">
+      <h2>What we will do next</h2>
+      <ol class="next-steps">
+        {lessons.map(({ title, description }) => (
+          <li>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </section>
+</BaseLayout>

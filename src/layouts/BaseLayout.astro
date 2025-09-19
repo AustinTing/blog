@@ -1,0 +1,65 @@
+---
+import Head from '../components/base/Head.astro';
+import Footer from '../components/base/Footer.astro';
+import '../styles/main.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props as Props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head {title} {description} />
+    <style is:global>
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      .skip-link:focus {
+        position: fixed;
+        left: 1rem;
+        top: 1rem;
+        width: auto;
+        height: auto;
+        padding: 0.5rem 1rem;
+        background: #fff;
+        color: #1d1b2f;
+        border-radius: 999px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      .page-content {
+        width: min(720px, 100%);
+        margin-inline: auto;
+      }
+
+      .site-footer {
+        margin-top: 4rem;
+        text-align: center;
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
+      .site-footer a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <main id="main" class="page-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
