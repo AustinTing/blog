@@ -1,4 +1,4 @@
-# Lesson 02：建立 Base Layout 與 Head 中繼資料
+# Lesson 03：建立 Base Layout 與 Head 中繼資料
 
 > 讓每個頁面都能共享同一個版型與 SEO 設定，準備好往內容頁擴充。
 
@@ -18,5 +18,5 @@
 - 自訂 Footer 文字或連結，讓作品隨著個人品牌更新而調整。
 
 ## 下一步建議
-- 開始規劃導覽列與站內設定檔（Lesson 03），讓 BaseLayout 能顯示真正的導覽內容。
+- 開始規劃導覽列與站內設定檔（Lesson 04），讓 BaseLayout 能顯示真正的導覽內容。
 - 思考要把全域樣式拆分到 `src/styles/page.css` 或其他檔案，以便後續維護。
