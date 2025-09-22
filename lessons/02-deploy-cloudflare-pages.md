@@ -1,0 +1,22 @@
+# Lesson 02：部署到 Cloudflare Pages
+
+> 把剛建立的 Astro 專案接上 Cloudflare Pages，打通 GitHub Actions 自動佈署流程。
+
+## 本次新增的檔案
+- `.github/workflows/deploy-cloudflare-pages.yml`：定義 CI 佈署流程，包含安裝 pnpm、建置 Astro、透過 Cloudflare Action 發佈。
+- `development.md`：課程表新增 Cloudflare Pages 章節，記錄 Secrets 命名與部署連結。
+- `src/pages/index.astro`：更新首頁導覽的 Lesson 清單，加入部署主題。
+
+## 關鍵程式區塊
+- GitHub Actions `deploy` 工作：使用 `pnpm/action-setup` 與 `actions/setup-node@v4`（Node.js 20）安裝環境並快取 `pnpm` 套件。
+- `pnpm install --frozen-lockfile` 與 `pnpm build`：確保 Cloudflare Pages 部署前通過鎖檔驗證與正式建置。
+- `cloudflare/pages-action@v1`：依 `CLOUDFLARE_ACCOUNT_ID`、`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_PROJECT_NAME` Secrets 推送靜態資源到 Cloudflare Pages。
+
+## 現在可以做什麼
+- 在 Cloudflare Pages 建立專案並選擇「Connect to Git」連結此 GitHub repository。
+- 前往專案 Settings → Environment Variables，設定 `CLOUDFLARE_ACCOUNT_ID` 與 `CLOUDFLARE_API_TOKEN`（需要擁有 `Cloudflare Pages` 與 `Workers KV Storage` 權限）。
+- 在 GitHub 專案的 Settings → Secrets and variables → Actions 加入 `CLOUDFLARE_PROJECT_NAME`，名稱需與 Cloudflare Pages 專案一致。
+- 推送到 `main`（或指定 branch）後觀察 Actions 工作「Deploy to Cloudflare Pages」，確認編譯與發佈成功。
+
+## 下一步建議
+- 完成部署後回頭繼續 Lesson 03，建立共用 Base Layout 與 Head 中繼資料，讓佈署中的網站擁有一致的框架。

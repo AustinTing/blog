@@ -21,4 +21,5 @@
 
 ## 下一步建議
 - 讀一遍 `references/astro-antfustyle-theme` 的資料夾結構，熟悉之後要重現的功能長什麼樣子。
-- 準備建立共用版型與 `<head>` 中的 SEO 標籤，這會是 Lesson 02 的主軸。
+- 註冊或登入 Cloudflare，取得帳號 ID 與 API Token，這會是 Lesson 02 的主軸。
+- 準備建立共用版型與 `<head>` 中的 SEO 標籤，這會是 Lesson 03 的主軸。
