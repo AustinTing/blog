@@ -14,8 +14,8 @@
 
 ## 現在可以做什麼
 - 在 Cloudflare Pages 建立專案並選擇「Connect to Git」連結此 GitHub repository。
-- 前往專案 Settings → Environment Variables，設定 `CLOUDFLARE_ACCOUNT_ID` 與 `CLOUDFLARE_API_TOKEN`（需要擁有 `Cloudflare Pages` 與 `Workers KV Storage` 權限）。
-- 在 GitHub 專案的 Settings → Secrets and variables → Actions 加入 `CLOUDFLARE_PROJECT_NAME`，名稱需與 Cloudflare Pages 專案一致。
+- 若改用 Cloudflare Pages 後台的原生部署流程（Dashboard 直接連 GitHub），Cloudflare 會透過 OAuth 取得授權，此時可以不在 GitHub 儲存庫內設定上方 Secrets。
+- 如需在 Cloudflare 後台設定 Build command / output / root，可對照 `pnpm run build`、`dist`、`.`。
 - 推送到 `main`（或指定 branch）後觀察 Actions 工作「Deploy to Cloudflare Pages」，確認編譯與發佈成功。
 
 ## 下一步建議
