@@ -8,7 +8,7 @@ interface Props {
 
 const SITE_TITLE = 'Learning Astro Blog';
 const SITE_DESCRIPTION = 'Step-by-step notes while rebuilding the astro-antfustyle-theme.';
-const SITE_AUTHOR = 'Your Name';
+const SITE_AUTHOR = 'Austin Ting';
 const SITE_LANG = 'en';
 
 const { title, description, pubDate, lastModDate } = Astro.props as Props;
@@ -20,24 +20,57 @@ const canonicalURL = Astro.site
   : undefined;
 const ogType = pubDate ? 'article' : 'website';
 ---
+<!-- Declare UTF-8 so browsers render characters consistently -->
 <meta charset="utf-8" />
+<!-- Ask legacy browsers to use their latest rendering engine -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- Configure responsive scaling for mobile and desktop -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Expose the Astro version powering this page -->
 <meta name="generator" content={Astro.generator} />
+<!-- Provide a search-friendly summary of the page -->
 <meta name="description" content={pageDescription} />
+<!-- Identify the primary author for attribution -->
 <meta name="author" content={SITE_AUTHOR} />
 <title>{pageTitle}</title>
 
+<!-- Define the Open Graph resource type for rich embeds -->
 <meta property="og:type" content={ogType} />
+<!-- Supply the Open Graph title used in previews -->
 <meta property="og:title" content={pageTitle} />
+<!-- Share the Open Graph description for social snippets -->
 <meta property="og:description" content={pageDescription} />
-{canonicalURL && <meta property="og:url" content={canonicalURL} />}
+{canonicalURL && (
+  <>
+    <!-- Publish the canonical URL for Open Graph consumers -->
+    <meta property="og:url" content={canonicalURL} />
+  </>
+)}
 
+<!-- Use Twitter summary cards instead of default link previews -->
 <meta name="twitter:card" content="summary" />
+<!-- Mirror the page title in Twitter previews -->
 <meta name="twitter:title" content={pageTitle} />
+<!-- Mirror the page description in Twitter previews -->
 <meta name="twitter:description" content={pageDescription} />
 
+<!-- Advertise the primary language for accessibility tools -->
 <meta name="language" content={SITE_LANG} />
-{canonicalURL && <link rel="canonical" href={canonicalURL} />}
-{pubDate && <meta property="article:published_time" content={pubDate} />}
-{lastModDate && <meta property="article:modified_time" content={lastModDate} />}
+{canonicalURL && (
+  <>
+    <!-- Signal the canonical link for search engines -->
+    <link rel="canonical" href={canonicalURL} />
+  </>
+)}
+{pubDate && (
+  <>
+    <!-- Mark when the article was originally published -->
+    <meta property="article:published_time" content={pubDate} />
+  </>
+)}
+{lastModDate && (
+  <>
+    <!-- Mark the most recent update timestamp for the article -->
+    <meta property="article:modified_time" content={lastModDate} />
+  </>
+)}

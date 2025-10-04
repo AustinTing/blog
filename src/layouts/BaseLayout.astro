@@ -14,6 +14,7 @@ const { title, description } = Astro.props as Props;
 <html lang="en">
   <head>
     <Head {title} {description} />
+    <!-- Use is:global so these base utilities stay available across the whole document -->
     <style is:global>
       .skip-link {
         position: absolute;

@@ -4,7 +4,7 @@
 
 ## 本次新增的檔案
 - `src/layouts/BaseLayout.astro`：包住 `<html>` 骨架、跳到主內容的無障礙連結，以及主要 `<main>` 容器。
-- `src/components/base/Head.astro`：集中處理標題、描述、Open Graph、Twitter Card 等中繼資料。
+- `src/components/base/Head.astro`：集中處理標題、描述、Open Graph(OG)、Twitter Card 等中繼資料。
 - `src/components/base/Footer.astro`：產生年度會自動更新的頁尾，並附上參考主題的連結。
 
 ## 關鍵程式區塊
