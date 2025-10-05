@@ -1,6 +1,8 @@
 ---
 import Head from '../components/base/Head.astro';
 import Footer from '../components/base/Footer.astro';
+import NavBar from '../components/nav/NavBar.astro';
+import { SITE } from '../config';
 import '../styles/main.css';
 
 interface Props {
@@ -9,11 +11,13 @@ interface Props {
 }
 
 const { title, description } = Astro.props as Props;
+
+const pageDescription = description ?? SITE.description;
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <Head {title} {description} />
+    <Head title={title} description={pageDescription} />
     <!-- Use is:global so these base utilities stay available across the whole document -->
     <style is:global>
       .skip-link {
@@ -39,9 +43,39 @@ const { title, description } = Astro.props as Props;
         z-index: 1000;
       }
 
-      .page-content {
-        width: min(720px, 100%);
+      .site-header {
+        width: 100%;
+        background: transparent;
+      }
+
+      .site-header__inner {
+        width: min(960px, 100%);
         margin-inline: auto;
+        padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .site-logo {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-tagline {
+        margin: 0;
+        max-width: 46ch;
+        opacity: 0.78;
+        font-size: 1rem;
+      }
+
+      .page-content {
+        width: min(960px, 100%);
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2.5rem);
       }
 
       .site-footer {
@@ -58,6 +92,13 @@ const { title, description } = Astro.props as Props;
   </head>
   <body class="page">
     <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-logo" href="/">{SITE.title}</a>
+        <p class="site-tagline">{SITE.description}</p>
+      </div>
+      <NavBar />
+    </header>
     <main id="main" class="page-content">
       <slot />
     </main>

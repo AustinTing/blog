@@ -14,9 +14,15 @@ body.page {
   min-height: 100vh;
   background: var(--page-bg);
   color: var(--text-color);
-  display: grid;
-  place-items: center;
-  padding: 3rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+main.page-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 4rem) 0 clamp(3rem, 8vw, 5rem);
 }
 
 .hero {
@@ -79,9 +85,15 @@ code {
   border-radius: 0.45em;
 }
 
+@media (max-width: 900px) {
+  main.page-content {
+    padding: clamp(1.5rem, 8vw, 3rem) 0 clamp(2.5rem, 10vw, 4rem);
+  }
+}
+
 @media (max-width: 600px) {
-  body.page {
-    padding: 2.5rem 1rem 3rem;
+  main.page-content {
+    padding: 2rem 0 3rem;
   }
 
   .hero {

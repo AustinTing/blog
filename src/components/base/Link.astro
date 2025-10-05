@@ -1,0 +1,58 @@
+---
+import type { JSX } from 'astro/jsx-runtime';
+import { UI } from '../../config';
+
+type AriaCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
+
+interface Props {
+  href: string;
+  external?: boolean;
+  class?: string;
+  ariaLabel?: string;
+  ariaCurrent?: AriaCurrent;
+  enableNewTabWarning?: boolean;
+  children?: JSX.Element | JSX.Element[] | string;
+}
+
+const {
+  href,
+  external,
+  class: className,
+  ariaLabel,
+  ariaCurrent,
+  enableNewTabWarning = true,
+} = Astro.props as Props;
+
+const isExternal = external ?? /^https?:/i.test(href);
+const shouldOpenInNewTab = isExternal && UI.externalLink.openInNewTab;
+const target = shouldOpenInNewTab ? '_blank' : undefined;
+const rel = shouldOpenInNewTab ? UI.externalLink.rel : undefined;
+
+const accessibleLabel = ariaLabel;
+---
+<a
+  href={href}
+  class={className}
+  target={target}
+  rel={rel}
+  aria-label={accessibleLabel}
+  aria-current={ariaCurrent}
+>
+  <slot />
+  {shouldOpenInNewTab && enableNewTabWarning ? (
+    <span class="sr-only">{UI.externalLink.newTabLabelSuffix}</span>
+  ) : null}
+</a>
+<style is:global>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

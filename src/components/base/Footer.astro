@@ -1,12 +1,18 @@
 ---
+import Link from './Link.astro';
+import { SITE, UI } from '../../config';
+
 const currentYear = new Date().getFullYear();
+const referenceLink = UI.socialLinks.find((link) => link.href.includes('astro-antfustyle-theme'));
 ---
 <footer class="site-footer" role="contentinfo">
   <p>
-    © {currentYear} Learning Astro Blog · Built while studying the
-    <!-- This link will open in a new tab(_blank) and will not send the referrer URL information(noreferrer) to GitHub. -->
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme" target="_blank" rel="noreferrer"> 
+    © {currentYear} {SITE.title} · Built while studying the{' '}
+    <Link
+      href={referenceLink?.href ?? 'https://github.com/lin-stephanie/astro-antfustyle-theme'}
+      external
+    >
       Astro AntfuStyle Theme
-    </a>
+    </Link>
   </p>
 </footer>

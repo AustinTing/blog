@@ -1,0 +1,276 @@
+---
+import { UI } from '../../config';
+import Link from '../base/Link.astro';
+import NavItem from './NavItem.astro';
+
+const layout = UI.navBarLayout ?? { left: ['internalNavs'], right: ['socialLinks'], mergeOnMobile: false };
+const currentPath = Astro.url.pathname;
+
+const orderedComponents = [...layout.left, ...layout.right].filter((key) => key !== 'hr');
+const duplicates = orderedComponents.filter((key, index) => orderedComponents.indexOf(key) !== index);
+
+if (duplicates.length > 0) {
+  console.warn(
+    `NavBar layout has duplicated components: ${Array.from(new Set(duplicates)).join(', ')}`,
+  );
+}
+const mobileOrder = layout.mergeOnMobile
+  ? Array.from(new Set([...layout.left, ...layout.right].filter((component) => component !== 'hr')))
+  : [];
+---
+<nav class={`site-nav${layout.mergeOnMobile ? ' site-nav--merge-mobile' : ''}`} aria-label="Primary">
+  <div class="site-nav__inner">
+    <div class="site-nav__section site-nav__section--left">
+      {layout.left.map((component) => {
+        if (component === 'hr') {
+          return <div class="nav-divider" role="presentation"></div>;
+        }
+
+        if (component === 'internalNavs' && UI.internalNavs.length > 0) {
+          return (
+            <ul class="nav-list nav-list--desktop">
+              {UI.internalNavs.map((item) => (
+                <NavItem item={item} currentPath={currentPath} />
+              ))}
+            </ul>
+          );
+        }
+
+        if (component === 'socialLinks' && UI.socialLinks.length > 0) {
+          return (
+            <ul class="nav-list nav-list--social nav-list--desktop">
+              {UI.socialLinks.map(({ href, label, icon }) => (
+                <li class="nav-item">
+                  <Link href={href} class="nav-link nav-link--external" external>
+                    {icon ? <span class={`nav-icon ${icon}`}></span> : null}
+                    <span class="nav-label">{label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+    <div class="site-nav__section site-nav__section--right">
+      {layout.right.map((component) => {
+        if (component === 'hr') {
+          return <div class="nav-divider" role="presentation"></div>;
+        }
+
+        if (component === 'internalNavs' && UI.internalNavs.length > 0) {
+          return (
+            <ul class="nav-list nav-list--desktop">
+              {UI.internalNavs.map((item) => (
+                <NavItem item={item} currentPath={currentPath} />
+              ))}
+            </ul>
+          );
+        }
+
+        if (component === 'socialLinks' && UI.socialLinks.length > 0) {
+          return (
+            <ul class="nav-list nav-list--social nav-list--desktop">
+              {UI.socialLinks.map(({ href, label, icon }) => (
+                <li class="nav-item">
+                  <Link href={href} class="nav-link nav-link--external" external>
+                    {icon ? <span class={`nav-icon ${icon}`}></span> : null}
+                    <span class="nav-label">{label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+  </div>
+  {layout.mergeOnMobile ? (
+    <details class="site-nav__mobile">
+      <summary class="site-nav__mobile-toggle" aria-label="Toggle navigation">Menu</summary>
+      <div class="site-nav__mobile-content">
+        {mobileOrder.map((component) => {
+          if (component === 'internalNavs' && UI.internalNavs.length > 0) {
+            return (
+              <ul class="nav-list nav-list--mobile">
+                {UI.internalNavs.map((item) => (
+                  <NavItem item={item} currentPath={currentPath} />
+                ))}
+              </ul>
+            );
+          }
+
+          if (component === 'socialLinks' && UI.socialLinks.length > 0) {
+            return (
+              <ul class="nav-list nav-list--social nav-list--mobile">
+                {UI.socialLinks.map(({ href, label, icon }) => (
+                  <li class="nav-item">
+                    <Link href={href} class="nav-link nav-link--external" external>
+                      {icon ? <span class={`nav-icon ${icon}`}></span> : null}
+                      <span class="nav-label">{label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            );
+          }
+
+          return null;
+        })}
+      </div>
+    </details>
+  ) : null}
+</nav>
+<style>
+  .site-nav {
+    border-bottom: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .site-nav__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+    width: min(960px, 100%);
+    margin-inline: auto;
+  }
+
+  .site-nav__section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list--mobile {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-item {
+    display: flex;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    outline: none;
+  }
+
+  .nav-link.is-active {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-link--alwaysIcon .nav-label {
+    display: none;
+  }
+
+  .nav-link--textHiddenOnMobile .nav-label {
+    display: inline;
+  }
+
+  .nav-link--iconHiddenOnMobile .nav-icon {
+    display: none;
+  }
+
+  .nav-link--textToIconOnMobile .nav-label {
+    display: inline;
+  }
+
+  .nav-link--external .nav-label {
+    font-weight: 500;
+  }
+
+  .nav-divider {
+    width: 1px;
+    align-self: stretch;
+    background: color-mix(in srgb, var(--text-color) 14%, transparent);
+  }
+
+  .site-nav__mobile {
+    display: none;
+    border-top: 1px solid color-mix(in srgb, var(--text-color) 10%, transparent);
+  }
+
+  .site-nav__mobile-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .site-nav__mobile-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-nav__mobile-content {
+    padding: 0 clamp(1rem, 4vw, 2.5rem) 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .site-nav--merge-mobile .site-nav__mobile .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .site-nav__inner {
+      display: none;
+    }
+
+    .site-nav__mobile {
+      display: block;
+    }
+
+    .nav-link--textHiddenOnMobile .nav-label {
+      display: none;
+    }
+
+    .nav-link--iconHiddenOnMobile .nav-icon {
+      display: none;
+    }
+
+    .nav-link--textToIconOnMobile .nav-label {
+      display: none;
+    }
+
+    .nav-link--textToIconOnMobile .nav-icon {
+      display: inline-flex;
+    }
+  }
+</style>
