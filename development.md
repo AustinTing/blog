@@ -33,6 +33,8 @@ Each lesson should ship in its own PR and touch **three to five files**. The "Fi
 |12 | Sharing, comments, and feeds | `src/components/widgets/ShareLink.astro`, `src/components/widgets/Giscus.astro`, `src/pages/rss.xml.js`, `src/components/base/PostMeta.astro`, `src/pages/manifest.webmanifest.js` | `src/components/widgets/ShareLink.astro`, `Giscus.astro`, `src/pages/rss.xml.js`, `src/components/base/PostMeta.astro`, `src/pages/manifest.webmanifest.js` | Social integrations, RSS generation, PWA metadata | Not started |
 |13 | Aha stack kick-off (htmx + Alpine.js) | `package.json`, `src/layouts/BaseLayout.astro`, `src/components/widgets/LogoButton.astro`, `src/pages/shorts.mdx` | Reference patterns from `src/components/widgets/*` and `src/pages/shorts.mdx` | Introduce htmx requests, Alpine state snippets, progressive enhancement strategy | Not started |
 
+> Lesson 04 完成：導覽列改由 `src/config.ts` 管理，`BaseLayout` 也加入 `<NavBar />` 與共用 Link 元件。
+
 ## Next Steps
 1. Confirm tooling (`pnpm` vs `npm`) and initialize the Astro scaffold (Lesson 1).
 2. Connect the repository to Cloudflare Pages, add the required Secrets (`CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_PROJECT_NAME`), and trigger a deployment (Lesson 2).

@@ -1,0 +1,32 @@
+---
+import MarkdownIt from 'markdown-it';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import lessonContent from '../../../lessons/04-navigation-driven-by-config.md?raw';
+
+const parser = new MarkdownIt({ html: true, linkify: true });
+const rendered = parser.render(lessonContent);
+---
+<BaseLayout title="Lesson 04 — Navigation driven by config" description="Notes for wiring the navigation bar from a shared SITE/UI config.">
+  <article class="lesson-article">
+    <div class="lesson-markdown" set:html={rendered} />
+  </article>
+</BaseLayout>
+
+<style>
+  .lesson-article {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 2rem 3rem;
+  }
+
+  .lesson-article :global(h1) {
+    margin-top: 0;
+  }
+
+  .lesson-markdown :global(pre) {
+    overflow-x: auto;
+    padding: 1rem;
+    background: rgba(29, 27, 47, 0.08);
+    border-radius: 0.75rem;
+  }
+</style>

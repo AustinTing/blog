@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const lessonGuides = [
+  {
+    title: 'Lesson 04 — 用設定檔驅動導覽列',
+    summary: '集中管理 SITE/UI 設定並讓 BaseLayout 導入共用的 NavBar 與 Link 元件。',
+    href: '/lessons/04-navigation-driven-by-config',
+  },
+];
+---
+<BaseLayout title="Lesson guides" description="Lesson notes documenting each milestone while rebuilding the theme.">
+  <section class="lesson-list" aria-labelledby="lesson-guides-heading">
+    <h1 id="lesson-guides-heading">Lesson Guides</h1>
+    <p class="lesson-list__intro">
+      一步一步重建 <code>astro-antfustyle-theme</code>，以下整理了目前完成的筆記與操作步驟。
+    </p>
+    <ul class="lesson-list__items">
+      {lessonGuides.map(({ title, summary, href }) => (
+        <li>
+          <a href={href}>
+            <h2>{title}</h2>
+            <p>{summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .lesson-list {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 2rem;
+  }
+
+  .lesson-list__intro {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .lesson-list__items {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lesson-list__items li a {
+    display: grid;
+    gap: 0.35rem;
+    text-decoration: none;
+    padding: 1.25rem clamp(1rem, 4vw, 1.75rem);
+    border-radius: 1rem;
+    border: 1px solid var(--card-border);
+    background: rgba(255, 255, 255, 0.85);
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .lesson-list__items li a:hover,
+  .lesson-list__items li a:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 20px 40px rgba(108, 78, 210, 0.12);
+    transform: translateY(-2px);
+    outline: none;
+  }
+
+  .lesson-list__items h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .lesson-list__items p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+</style>

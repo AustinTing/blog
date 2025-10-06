@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../../config';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,15 +8,10 @@ interface Props {
   lastModDate?: string;
 }
 
-const SITE_TITLE = 'Learning Astro Blog';
-const SITE_DESCRIPTION = 'Step-by-step notes while rebuilding the astro-antfustyle-theme.';
-const SITE_AUTHOR = 'Austin Ting';
-const SITE_LANG = 'en';
-
 const { title, description, pubDate, lastModDate } = Astro.props as Props;
 
-const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
-const pageDescription = description ?? SITE_DESCRIPTION;
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+const pageDescription = description ?? SITE.description;
 const canonicalURL = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
   : undefined;
@@ -31,7 +28,7 @@ const ogType = pubDate ? 'article' : 'website';
 <!-- Provide a search-friendly summary of the page -->
 <meta name="description" content={pageDescription} />
 <!-- Identify the primary author for attribution -->
-<meta name="author" content={SITE_AUTHOR} />
+<meta name="author" content="Austin Ting" />
 <title>{pageTitle}</title>
 
 <!-- Define the Open Graph resource type for rich embeds -->
@@ -55,7 +52,7 @@ const ogType = pubDate ? 'article' : 'website';
 <meta name="twitter:description" content={pageDescription} />
 
 <!-- Advertise the primary language for accessibility tools -->
-<meta name="language" content={SITE_LANG} />
+<meta name="language" content="en" />
 {canonicalURL && (
   <>
     <!-- Signal the canonical link for search engines -->

@@ -1,0 +1,31 @@
+---
+import type { InternalNavItem } from '../../config';
+import Link from '../base/Link.astro';
+
+interface Props {
+  item: InternalNavItem;
+  currentPath: string;
+}
+
+const { item, currentPath } = Astro.props as Props;
+const { path, text, icon, displayMode = 'alwaysText' } = item;
+
+const isActive =
+  currentPath === path || (path !== '/' && currentPath.startsWith(path));
+const ariaCurrent = isActive ? 'page' : undefined;
+
+const classes = ['nav-link'];
+if (isActive) {
+  classes.push('is-active');
+}
+classes.push(`nav-link--${displayMode}`);
+
+const showIcon = Boolean(icon) && displayMode !== 'alwaysText';
+const showText = displayMode !== 'alwaysIcon';
+---
+<li class="nav-item">
+  <Link href={path} class={classes.join(' ')} ariaCurrent={ariaCurrent} enableNewTabWarning={false}>
+    {showIcon ? <span class={`nav-icon ${icon}`}></span> : null}
+    {showText ? <span class="nav-label">{text}</span> : null}
+  </Link>
+</li>
