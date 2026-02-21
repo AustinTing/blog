@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  return allPosts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.id },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">{post.data.title}</h1>
+      <time class="post-date" datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('zh-TW', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
+      </time>
+    </header>
+    <div class="post-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    padding-block: 1rem 2rem;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .post-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-block: 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .post-date {
+    font-size: 0.875rem;
+    opacity: 0.55;
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.375rem;
+    margin-block: 2rem 0.75rem;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.125rem;
+    margin-block: 1.5rem 0.5rem;
+  }
+
+  .post-content :global(p) {
+    margin-block: 0 1rem;
+    line-height: 1.75;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: 1.5rem;
+    margin-block: 0 1rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.35rem;
+    line-height: 1.7;
+  }
+</style>

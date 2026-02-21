@@ -1,0 +1,55 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+<nav class="site-nav" aria-label="Site navigation">
+  {links.map(({ href, label }) => (
+    <a
+      href={href}
+      class:list={[
+        'nav-link',
+        {
+          active:
+            href === '/'
+              ? currentPath === '/'
+              : currentPath.startsWith(href),
+        },
+      ]}
+    >
+      {label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .site-nav {
+    width: min(720px, 100%);
+    display: flex;
+    gap: 1.5rem;
+    padding-block: 1rem;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+
+  .nav-link:hover {
+    opacity: 0.9;
+  }
+
+  .nav-link.active {
+    opacity: 1;
+    color: var(--accent);
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 2px;
+  }
+</style>

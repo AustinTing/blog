@@ -45,6 +45,7 @@ AGENTS.md      # 協作原則（工作流程的唯一可信來源）
 - **樣式：** 使用原生 CSS 搭配自訂屬性，尚未引入工具類別框架（UnoCSS 將於 Aha stack 階段加入）。
 - **課程／PR：** 每個課程控制在 3-5 個檔案。引入互動功能時，須在 PR 說明中記錄手動瀏覽器驗證結果。
 - **`development.md`** 須隨時反映最新的課程進度與路線圖變更。
+- **文件語言：** 所有文件（Markdown、注解說明等）使用正體中文撰寫；技術名詞（框架、API、工具名稱等）維持英文。程式碼與程式碼注解維持英文。
 
 ## References 管理
 
@@ -58,3 +59,15 @@ git subtree pull --prefix=references/astro-antfustyle-theme https://github.com/l
 ## 部署
 
 透過 GitHub Actions 部署至 Cloudflare Pages。需設定三個儲存庫 Secret：`CLOUDFLARE_ACCOUNT_ID`、`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_PROJECT_NAME`。
+
+## 環境設定
+
+Node 與 openspec 透過 **nvm** 管理。`~/.zshenv` 已設定 nvm 初始化，讓非互動式 shell（包含 Claude Code 的 Bash tool）也能找到相關指令：
+
+```bash
+# ~/.zshenv
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+```
+
+openspec CLI 安裝於 node v24.13.1 的全域環境。升級 node 後需重新 `npm install -g openspec`。
