@@ -3,10 +3,11 @@ title: Project Structure
 description: Introduces the structure of the Astro AntfuStyle Theme
 pubDate: 2024-10-03
 lastModDate: 2025-05-20
+ogImage: true
 toc: true
 share: true
 giscus: true
-ogImage: true
+search: true
 ---
 
 This post will quickly familiarize you with the entire structure of the [Astro AntfuStyle Theme](https://github.com/lin-stephanie/astro-antfustyle-theme) project.
@@ -87,10 +88,10 @@ astro-antfustyle-theme
 | | | |-index.mdx                           // Photos index page.
 | | | |-photos.[hash].json.ts               // Build-time generated `photos.[hash].json` for client-side retrieval.
 | | |-404.mdx                               // Custom 404 error page.
+| | |-app.webmanifest.js                    // Web app manifest file for mobile and PWA support.
 | | |-feeds.mdx                             // Example: fetching Astro Blog using `@ascorbic/feed-loader`.
 | | |-highlights.mdx                        // Display creative work or curated posts.
 | | |-index.mdx                             // Homepage.
-| | |-manifest.webmanifest.js               // Web app manifest file for mobile and PWA support.
 | | |-projects.mdx                          // Display projects.
 | | |-prs.mdx                               // Display GitHub pull requests.
 | | |-releases.mdx                          // Display GitHub releases.
@@ -103,10 +104,10 @@ astro-antfustyle-theme
 | | |-page.css                              // Styles for specific page.
 | | |-prose.css                             // Prose styles for text content.
 | |-utils                                   // Utility functions and helpers.
-| | |-animation.ts                          // For handling animation.
 | | |-data.ts                               // For handling psots and GitHub/Bluesky data.
 | | |-datetime.ts                           // For handling date and time.
 | | |-image.ts                              // For handling image.
+| | |-misc.ts                               // For handling misc.
 | | |-path.ts                               // For handling path-related operations.
 | | |-toc.ts                                // For generating tables of contents.
 | |-config.ts                               // Configuration file for theme-specific options.
@@ -144,8 +145,6 @@ It is recommended to review the Astro's [Content Collections](https://docs.astro
 
 How theme pages map to collections (defined in `src/content.config.ts`):
 
-<div class='overflow-x-auto'>
-
 | URL Path                                              | Page File Location                 | Collection  Storage Location                                     | Zod Schema              |
 | ----------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------- | ----------------------- |
 | `/`                                                   | `src/pages/index.mdx`              | `src/content/home/`                                              | -                       |
@@ -161,8 +160,6 @@ How theme pages map to collections (defined in `src/content.config.ts`):
 | `/changelog/xxx`                                      | `src/pages/changelog/[slug].astro` | `src/content/changelog/`                                         | `postSchema`            |
 | `/feeds`                                              | `src/pages/feeds.mdx`              | [Via Astro loader](../recreating-current-pages/#feeds-page)      | Default by Astro loader |
 | `/streams`                                            | `src/pages/streams.mdx`            | `src/content/streams/`                                           | `streamSchema`          |
-
-</div>
 
 When to use each file format in theme development:
 
@@ -200,5 +197,7 @@ Thank you for your interest in this project! 😊
 - Changes for Astro 5.7
 
 2025-05-20
-- New `vercel.json` for configuring CORS headers 
+- New `vercel.json` for configuring CORS headers
+
+[View full history](https://github.com/lin-stephanie/astro-antfustyle-theme/commits/main/src/content/blog/project-structure.md)
 :::
