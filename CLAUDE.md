@@ -46,6 +46,15 @@ AGENTS.md      # 協作原則（工作流程的唯一可信來源）
 - **課程／PR：** 每個課程控制在 3-5 個檔案。引入互動功能時，須在 PR 說明中記錄手動瀏覽器驗證結果。
 - **`development.md`** 須隨時反映最新的課程進度與路線圖變更。
 
+## References 管理
+
+`references/astro-antfustyle-theme/` 透過 **git subtree** 引入，上游為 https://github.com/lin-stephanie/astro-antfustyle-theme。
+
+```bash
+# 更新到上游最新版本
+git subtree pull --prefix=references/astro-antfustyle-theme https://github.com/lin-stephanie/astro-antfustyle-theme main --squash
+```
+
 ## 部署
 
 透過 GitHub Actions 部署至 Cloudflare Pages。需設定三個儲存庫 Secret：`CLOUDFLARE_ACCOUNT_ID`、`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_PROJECT_NAME`。
