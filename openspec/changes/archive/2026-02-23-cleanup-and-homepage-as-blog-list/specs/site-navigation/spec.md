@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: 全站 NavBar 元件
 系統 SHALL 提供一個 `NavBar.astro` 元件，置於 `src/components/nav/` 目錄下，並在 `BaseLayout.astro` 中渲染於主內容之前。NavBar SHALL 包含連結至 `/`（首頁）的導航項目。所有使用 BaseLayout 的頁面 SHALL 自動顯示 NavBar。
 
