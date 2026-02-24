@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
   title?: string;
   description?: string;
@@ -33,6 +35,10 @@ const ogType = pubDate ? 'article' : 'website';
 <!-- Identify the primary author for attribution -->
 <meta name="author" content={SITE_AUTHOR} />
 <title>{pageTitle}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
 
 <!-- Define the Open Graph resource type for rich embeds -->
 <meta property="og:type" content={ogType} />
@@ -74,3 +80,12 @@ const ogType = pubDate ? 'article' : 'website';
     <meta property="article:modified_time" content={lastModDate} />
   </>
 )}
+
+<ClientRouter />
+
+<style is:global>
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 250ms;
+  }
+</style>

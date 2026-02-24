@@ -1,12 +1,21 @@
 :root {
   color-scheme: light dark;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
-  --page-bg: radial-gradient(circle at top, #f6f3ff, #f7f9fc 45%, #ffffff 100%);
+  --page-bg: radial-gradient(ellipse at top, #f3eeff, #fdf0f5 40%, #fff8f3 70%, #ffffff 100%);
   --text-color: #1d1b2f;
   --accent: #6c4ed2;
+  --accent-pink: #e879a8;
+  --accent-orange: #f0a05e;
+  --gradient-kirakira: linear-gradient(135deg, #b586f0, #e879a8, #f0a05e);
   --accent-soft: color-mix(in srgb, var(--accent) 25%, white);
   --card-border: color-mix(in srgb, var(--accent) 35%, transparent);
+  --font-heading: 'Quicksand', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
 }
 
 body.page {
@@ -26,7 +35,7 @@ body.page {
   border: 1px solid var(--card-border);
   border-radius: 1.5rem;
   padding: 2.5rem clamp(1.5rem, 4vw, 3.5rem);
-  box-shadow: 0 30px 60px rgba(108, 78, 210, 0.12);
+  box-shadow: 0 30px 60px rgba(181, 134, 240, 0.12);
 }
 
 .hero h1 {
@@ -86,5 +95,13 @@ code {
 
   .hero {
     padding: 2rem clamp(1rem, 6vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

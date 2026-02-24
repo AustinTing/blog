@@ -60,6 +60,12 @@ const { Content } = await render(post);
     margin-block: 2rem 0.75rem;
   }
 
+  .post-content :global(h2)::before {
+    content: '✦ ';
+    color: var(--accent-pink);
+    font-size: 0.75em;
+  }
+
   .post-content :global(h3) {
     font-size: 1.125rem;
     margin-block: 1.5rem 0.5rem;
@@ -79,5 +85,17 @@ const { Content } = await render(post);
   .post-content :global(li) {
     margin-bottom: 0.35rem;
     line-height: 1.7;
+  }
+
+  .post-content :global(a) {
+    color: var(--accent);
+    text-decoration-color: color-mix(in srgb, var(--accent-pink) 40%, transparent);
+    text-underline-offset: 2px;
+    transition: text-shadow 0.2s, color 0.2s;
+  }
+
+  .post-content :global(a:hover) {
+    color: var(--accent-pink);
+    text-shadow: 0 0 8px rgba(232, 121, 168, 0.3);
   }
 </style>

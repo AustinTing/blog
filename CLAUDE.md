@@ -4,9 +4,7 @@
 
 ## 專案目的
 
-這是一個以學習為導向的 Astro 部落格，目標是逐步重建 `references/astro-antfustyle-theme` 參考主題。每個課程產出一個小型且易於審閱的 PR（3-5 個檔案）。進度追蹤於 [development.md](development.md)。
-
-**學習路線：** Astro 基礎 → 對齊參考主題 → 加入「Aha stack」（Astro + htmx + Alpine.js）。
+這是一個正式的個人部落格，採用 **Aha stack**（Astro + htmx + Alpine.js）技術架構。開發新功能時，參考 `references/astro-antfustyle-theme` 的解法，但須自行重新實作。進度追蹤於 [development.md](development.md)。
 
 ## 指令
 
@@ -29,9 +27,8 @@ src/
     base/      # 基礎元件：Head.astro、Footer.astro
   styles/      # 全域 CSS，使用自訂屬性定義主題
 public/        # 靜態資源（favicon、PWA 圖示）
-lessons/       # 每個已完成課程的 Markdown 說明文件
 references/    # 唯讀：astro-antfustyle-theme 參考實作
-development.md # 動態路線圖，在此更新課程進度
+development.md # 動態路線圖，在此更新開發進度
 AGENTS.md      # 協作原則（工作流程的唯一可信來源）
 ```
 
@@ -42,10 +39,10 @@ AGENTS.md      # 協作原則（工作流程的唯一可信來源）
 ## 重要慣例
 
 - **參考主題為唯讀。** 須重新實作功能，不得直接複製 `references/` 中的檔案。在提交訊息中說明參考了哪些參考檔案。
-- **樣式：** 使用原生 CSS 搭配自訂屬性，尚未引入工具類別框架（UnoCSS 將於 Aha stack 階段加入）。
-- **課程／PR：** 每個課程控制在 3-5 個檔案。引入互動功能時，須在 PR 說明中記錄手動瀏覽器驗證結果。
-- **`development.md`** 須隨時反映最新的課程進度與路線圖變更。
+- **樣式：** 使用原生 CSS 搭配自訂屬性，視需要引入 UnoCSS 等工具類別框架。
+- **`development.md`** 須隨時反映最新的開發進度與路線圖變更。
 - **文件語言：** 所有文件（Markdown、注解說明等）使用正體中文撰寫；技術名詞（框架、API、工具名稱等）維持英文。程式碼與程式碼注解維持英文。
+- **Git commit 訊息：** title 使用英文（conventional commit 格式），body 使用正體中文。
 
 ## References 管理
 
