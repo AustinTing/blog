@@ -9,6 +9,7 @@ const blog = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().default(false),
     category: z.enum(['work', 'life']),
+    milestone: z.boolean().default(false),
     cover: z.string().optional(),
     tags: z.array(z.string()).optional(),
   }),

@@ -1,4 +1,17 @@
-/* Timeline layout */
+/* ========================
+   Timeline layout
+
+   Two-sided timeline:
+   - Left side: milestone articles
+   - Right side: regular articles
+   - Year dividers centered on the line
+   - Vertical line = ::before on .timeline-entries
+   - Dots at element edge + translateX = always on the line
+
+   The key trick (ref: 金魚 CSS):
+   entry edge IS the line position, so dots at
+   left:0/right:0 + transform are perfectly aligned.
+   ======================== */
 
 .timeline-section {
   padding-block: 1rem 2rem;
@@ -54,35 +67,48 @@
 
 /* ========================
    Timeline structure
-
-   Key idea: the vertical line is border-left on
-   .timeline-year-posts. Dots use ::before with a
-   fixed negative left to sit exactly on the border.
-
-   Desktop layout:
-   [  year  ] | [ cards ... ]
-              ^
-         border-left
    ======================== */
+
+.timeline {
+  --line-pos: 35%;
+}
 
 /* Year group */
 
 .timeline-year-group {
   position: relative;
-  margin-block-end: 0;
 }
 
-/* Hide year group when all cards are hidden by Alpine.js filter */
-.timeline-year-group:not(:has(.timeline-card:not([style*="display: none"]))) {
+/* Hide year group when all entries are filtered out */
+.timeline-year-group:not(:has(.timeline-entry:not([style*="display: none"]))) {
   display: none;
 }
 
-/* Year label */
+/* ========================
+   Year divider
+   ─────── 2026 ───────
+   ======================== */
 
-.timeline-year-label {
-  position: relative;
-  padding-block: 0.25rem;
-  padding-inline-start: 7.5rem;
+.timeline-year-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.timeline-year-divider::before,
+.timeline-year-divider::after {
+  content: '';
+  height: 1px;
+  background: var(--card-border);
+}
+
+.timeline-year-divider::before {
+  flex: 0 0 calc(var(--line-pos) - 2rem);
+}
+
+.timeline-year-divider::after {
+  flex: 1;
 }
 
 .year-text {
@@ -93,52 +119,58 @@
   letter-spacing: -0.02em;
 }
 
-/* Year dot — positioned to overlap the border-left of .timeline-year-posts.
-   border-left sits at 7.5rem from the left edge.
-   Dot is 14px wide (+ 2px border each side = 18px total).
-   Center the dot on the border: left = 7.5rem - 9px */
-.timeline-year-label::before {
-  content: '';
-  position: absolute;
-  left: calc(7.5rem - 9px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--gradient-kirakira);
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 2px var(--card-border);
-  z-index: 2;
-}
+/* ========================
+   Entries area — the vertical line lives here
+   ======================== */
 
-/* Posts area — border-left IS the timeline */
-
-.timeline-year-posts {
+.timeline-entries {
+  position: relative;
+  padding-block: 0.5rem 1rem;
   display: grid;
   gap: 1rem;
-  margin-inline-start: 7.5rem;
-  padding-inline-start: 2rem;
-  padding-block: 0.75rem 1.5rem;
-  border-left: 2px solid var(--card-border);
 }
 
-/* Individual card */
-
-.timeline-card {
-  position: relative;
-}
-
-/* Card dot — centered on the border-left.
-   The card content starts after 2rem padding.
-   border-left is at left: -2rem from the card.
-   Dot is 10px wide + 2px border = 14px total.
-   Center: left = -2rem - 1px (half of 2px border) - 6px (dot half with border)
-         = -2rem - 7px */
-.timeline-card::before {
+/* Vertical line */
+.timeline-entries::before {
   content: '';
   position: absolute;
-  left: calc(-2rem - 7px);
+  left: var(--line-pos);
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--card-border);
+  z-index: 0;
+}
+
+/* ========================
+   Entry positioning
+
+   Right entry: margin-left = line position
+   → left edge of entry IS the line
+   → dot at left:0 + translateX(-50%) = centered on line
+
+   Left entry: width = line position
+   → right edge of entry IS the line
+   → dot at right:0 + translateX(50%) = centered on line
+   ======================== */
+
+.timeline-entry {
+  position: relative;
+  z-index: 1;
+}
+
+/* Right side (regular articles) */
+.entry-right {
+  margin-left: var(--line-pos);
+  padding-left: 1.5rem;
+}
+
+.entry-right::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  transform: translateX(-50%);
   top: 2rem;
   width: 10px;
   height: 10px;
@@ -147,6 +179,36 @@
   border: 2px solid var(--card-border);
   z-index: 2;
 }
+
+/* Left side (milestone articles) */
+.entry-left {
+  width: var(--line-pos);
+  padding-right: 1.5rem;
+}
+
+.entry-left::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  transform: translateX(50%);
+  top: 2rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gradient-kirakira);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--card-border);
+  z-index: 2;
+}
+
+/* Left entry: date right-aligned */
+.entry-left .timeline-date {
+  text-align: right;
+}
+
+/* ========================
+   Card shared styles
+   ======================== */
 
 .timeline-date {
   display: block;
@@ -170,7 +232,6 @@
   transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
 }
 
-/* Hover: lift + gradient glow */
 .timeline-card-inner:hover {
   border-color: var(--accent-pink);
   box-shadow:
@@ -179,10 +240,16 @@
   transform: translateY(-2px);
 }
 
-/* ========================
-   Category badge — top right
-   ======================== */
+/* Milestone star */
+.milestone-mark {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  font-size: 0.8rem;
+  color: var(--accent-orange);
+}
 
+/* Category badge — top right */
 .category-badge {
   position: absolute;
   top: 1rem;
@@ -216,7 +283,7 @@
 }
 
 .card-description {
-  margin-block: 0 0.75rem;
+  margin-block: 0;
   opacity: 0.75;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -225,31 +292,42 @@
 .card-cover {
   width: 100%;
   border-radius: 0.75rem;
-  margin-block-start: 0.25rem;
+  margin-block-start: 0.75rem;
   object-fit: cover;
   max-height: 200px;
 }
 
 /* ========================
    Mobile (< 768px)
+   All entries go right, milestones marked with star
    ======================== */
 
 @media (max-width: 767px) {
-  .timeline-year-label {
-    padding-inline-start: 2.5rem;
+  .timeline {
+    --line-pos: 1.5rem;
   }
 
-  .timeline-year-label::before {
-    left: calc(2.5rem - 9px);
+  /* Override left entries to behave like right */
+  .entry-left {
+    width: auto;
+    padding-right: 0;
+    margin-left: var(--line-pos);
+    padding-left: 1.5rem;
   }
 
-  .timeline-year-posts {
-    margin-inline-start: 2.5rem;
-    padding-inline-start: 1.25rem;
+  /* Switch dot to left side */
+  .entry-left::before {
+    right: auto;
+    left: 0;
+    transform: translateX(-50%);
   }
 
-  .timeline-card::before {
-    left: calc(-1.25rem - 7px);
+  .entry-left .timeline-date {
+    text-align: left;
+  }
+
+  .timeline-year-divider::before {
+    flex: 0 0 0;
   }
 }
 

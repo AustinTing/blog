@@ -31,19 +31,26 @@ for (const post of posts) {
       <div class="timeline">
         {[...postsByYear.entries()].map(([year, yearPosts]) => (
           <div class="timeline-year-group">
-            <div class="timeline-year-label">
+            <div class="timeline-year-divider">
               <span class="year-text">{year}</span>
             </div>
-            <div class="timeline-year-posts">
+            <div class="timeline-entries">
               {yearPosts.map((post) => (
-                <TimelineCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  date={post.data.date}
-                  category={post.data.category}
-                  cover={post.data.cover}
-                  slug={post.id}
-                />
+                <div
+                  class={`timeline-entry ${post.data.milestone ? 'entry-left' : 'entry-right'}`}
+                  data-category={post.data.category}
+                  x-show={`filter === 'all' || filter === '${post.data.category}'`}
+                >
+                  <TimelineCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    date={post.data.date}
+                    category={post.data.category}
+                    cover={post.data.cover}
+                    slug={post.id}
+                    milestone={post.data.milestone}
+                  />
+                </div>
               ))}
             </div>
           </div>

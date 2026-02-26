@@ -6,9 +6,10 @@ interface Props {
   category: 'work' | 'life';
   cover?: string;
   slug: string;
+  milestone?: boolean;
 }
 
-const { title, description, date, category, cover, slug } = Astro.props;
+const { title, description, date, category, cover, slug, milestone } = Astro.props;
 
 const monthDay = date.toLocaleDateString('zh-TW', {
   month: '2-digit',
@@ -16,25 +17,18 @@ const monthDay = date.toLocaleDateString('zh-TW', {
 });
 ---
 
-<article
-  class="timeline-card"
-  data-category={category}
-  x-show={`filter === 'all' || filter === '${category}'`}
-  x-transition:enter="card-enter"
-  x-transition:leave="card-leave"
->
-  <span class="timeline-date">{monthDay}</span>
-  <a href={`/blog/${slug}`} class="timeline-card-inner">
-    <span class={`category-badge badge-${category}`}>{category}</span>
-    <h2 class="card-title">{title}</h2>
-    <p class="card-description">{description}</p>
-    {cover && (
-      <img
-        src={cover}
-        alt={`${title} cover`}
-        class="card-cover"
-        loading="lazy"
-      />
-    )}
-  </a>
-</article>
+<span class="timeline-date">{monthDay}</span>
+<a href={`/blog/${slug}`} class="timeline-card-inner">
+  {milestone && <span class="milestone-mark">★</span>}
+  <span class={`category-badge badge-${category}`}>{category}</span>
+  <h2 class="card-title">{title}</h2>
+  <p class="card-description">{description}</p>
+  {cover && (
+    <img
+      src={cover}
+      alt={`${title} cover`}
+      class="card-cover"
+      loading="lazy"
+    />
+  )}
+</a>
