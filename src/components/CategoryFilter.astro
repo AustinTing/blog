@@ -1,0 +1,20 @@
+---
+---
+
+<nav class="category-filter" aria-label="Category filter">
+  <button
+    class="filter-btn"
+    :class="{ active: filter === 'all' }"
+    @click="filter = 'all'"
+  >All</button>
+  <button
+    class="filter-btn filter-work"
+    :class="{ active: filter === 'work' }"
+    @click="filter = 'work'"
+  >Work</button>
+  <button
+    class="filter-btn filter-life"
+    :class="{ active: filter === 'life' }"
+    @click="filter = 'life'"
+  >Life</button>
+</nav>

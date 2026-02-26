@@ -1,0 +1,264 @@
+/* Timeline layout */
+
+.timeline-section {
+  padding-block: 1rem 2rem;
+}
+
+.empty {
+  opacity: 0.6;
+}
+
+/* ========================
+   Category filter
+   ======================== */
+
+.category-filter {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-block-end: 2rem;
+}
+
+.filter-btn {
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-color);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-btn.filter-work.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.filter-btn.filter-life.active {
+  background: var(--accent-pink);
+  border-color: var(--accent-pink);
+}
+
+/* ========================
+   Timeline structure
+
+   Key idea: the vertical line is border-left on
+   .timeline-year-posts. Dots use ::before with a
+   fixed negative left to sit exactly on the border.
+
+   Desktop layout:
+   [  year  ] | [ cards ... ]
+              ^
+         border-left
+   ======================== */
+
+/* Year group */
+
+.timeline-year-group {
+  position: relative;
+  margin-block-end: 0;
+}
+
+/* Hide year group when all cards are hidden by Alpine.js filter */
+.timeline-year-group:not(:has(.timeline-card:not([style*="display: none"]))) {
+  display: none;
+}
+
+/* Year label */
+
+.timeline-year-label {
+  position: relative;
+  padding-block: 0.25rem;
+  padding-inline-start: 7.5rem;
+}
+
+.year-text {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+/* Year dot — positioned to overlap the border-left of .timeline-year-posts.
+   border-left sits at 7.5rem from the left edge.
+   Dot is 14px wide (+ 2px border each side = 18px total).
+   Center the dot on the border: left = 7.5rem - 9px */
+.timeline-year-label::before {
+  content: '';
+  position: absolute;
+  left: calc(7.5rem - 9px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gradient-kirakira);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--card-border);
+  z-index: 2;
+}
+
+/* Posts area — border-left IS the timeline */
+
+.timeline-year-posts {
+  display: grid;
+  gap: 1rem;
+  margin-inline-start: 7.5rem;
+  padding-inline-start: 2rem;
+  padding-block: 0.75rem 1.5rem;
+  border-left: 2px solid var(--card-border);
+}
+
+/* Individual card */
+
+.timeline-card {
+  position: relative;
+}
+
+/* Card dot — centered on the border-left.
+   The card content starts after 2rem padding.
+   border-left is at left: -2rem from the card.
+   Dot is 10px wide + 2px border = 14px total.
+   Center: left = -2rem - 1px (half of 2px border) - 6px (dot half with border)
+         = -2rem - 7px */
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  left: calc(-2rem - 7px);
+  top: 2rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--card-border);
+  z-index: 2;
+}
+
+.timeline-date {
+  display: block;
+  font-size: 0.8rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.5;
+  margin-block-end: 0.25rem;
+}
+
+.timeline-card-inner {
+  display: block;
+  position: relative;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+/* Hover: lift + gradient glow */
+.timeline-card-inner:hover {
+  border-color: var(--accent-pink);
+  box-shadow:
+    0 4px 20px rgba(181, 134, 240, 0.18),
+    0 0 0 1px rgba(232, 121, 168, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ========================
+   Category badge — top right
+   ======================== */
+
+.category-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  text-transform: capitalize;
+}
+
+.badge-work {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+.badge-life {
+  background: color-mix(in srgb, var(--accent-pink) 15%, transparent);
+  color: var(--accent-pink);
+}
+
+/* Card content */
+
+.card-title {
+  font-size: 1.125rem;
+  margin-block: 0 0.5rem;
+  color: var(--accent);
+  padding-inline-end: 4rem;
+}
+
+.card-description {
+  margin-block: 0 0.75rem;
+  opacity: 0.75;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.card-cover {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin-block-start: 0.25rem;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+/* ========================
+   Mobile (< 768px)
+   ======================== */
+
+@media (max-width: 767px) {
+  .timeline-year-label {
+    padding-inline-start: 2.5rem;
+  }
+
+  .timeline-year-label::before {
+    left: calc(2.5rem - 9px);
+  }
+
+  .timeline-year-posts {
+    margin-inline-start: 2.5rem;
+    padding-inline-start: 1.25rem;
+  }
+
+  .timeline-card::before {
+    left: calc(-1.25rem - 7px);
+  }
+}
+
+/* ========================
+   Reduced motion
+   ======================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-card-inner {
+    transition: none;
+  }
+}

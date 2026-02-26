@@ -1,100 +1,54 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import CategoryFilter from '~/components/CategoryFilter.astro';
+import TimelineCard from '~/components/TimelineCard.astro';
+import '~/styles/timeline.css';
 
 const allPosts = await getCollection('blog');
 
 const posts = allPosts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Group posts by year
+const postsByYear = new Map<number, typeof posts>();
+for (const post of posts) {
+  const year = post.data.date.getFullYear();
+  if (!postsByYear.has(year)) {
+    postsByYear.set(year, []);
+  }
+  postsByYear.get(year)!.push(post);
+}
 ---
 <BaseLayout title="文章" description="所有文章">
-  <section class="blog-list">
-    <h1>文章</h1>
+  <section class="timeline-section" x-data="{ filter: 'all' }">
+    <CategoryFilter />
+
     {posts.length === 0 ? (
       <p class="empty">目前還沒有文章。</p>
     ) : (
-      <ul class="post-list">
-        {posts.map((post) => (
-          <li class="post-item">
-            <a href={`/blog/${post.id}`} class="post-link">
-              <h2 class="post-title">{post.data.title}</h2>
-              <p class="post-description">{post.data.description}</p>
-              <time class="post-date" datetime={post.data.date.toISOString()}>
-                {post.data.date.toLocaleDateString('zh-TW', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-            </a>
-          </li>
+      <div class="timeline">
+        {[...postsByYear.entries()].map(([year, yearPosts]) => (
+          <div class="timeline-year-group">
+            <div class="timeline-year-label">
+              <span class="year-text">{year}</span>
+            </div>
+            <div class="timeline-year-posts">
+              {yearPosts.map((post) => (
+                <TimelineCard
+                  title={post.data.title}
+                  description={post.data.description}
+                  date={post.data.date}
+                  category={post.data.category}
+                  cover={post.data.cover}
+                  slug={post.id}
+                />
+              ))}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     )}
   </section>
 </BaseLayout>
-
-<style>
-  .blog-list {
-    padding-block: 1rem 2rem;
-  }
-
-  .blog-list h1 {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-    margin-block: 0 1.5rem;
-    letter-spacing: -0.02em;
-  }
-
-  .empty {
-    opacity: 0.6;
-  }
-
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 1rem;
-  }
-
-  .post-item {
-    border: 1px solid var(--card-border);
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.7);
-    transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
-  }
-
-  .post-item:hover {
-    border-color: var(--accent-pink);
-    box-shadow:
-      0 4px 20px rgba(181, 134, 240, 0.18),
-      0 0 0 1px rgba(232, 121, 168, 0.2);
-    transform: translateY(-2px);
-  }
-
-  .post-link {
-    display: block;
-    padding: 1.25rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .post-title {
-    font-size: 1.125rem;
-    margin-block: 0 0.5rem;
-    color: var(--accent);
-  }
-
-  .post-description {
-    margin-block: 0 0.75rem;
-    opacity: 0.75;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .post-date {
-    font-size: 0.85rem;
-    opacity: 0.55;
-  }
-</style>
