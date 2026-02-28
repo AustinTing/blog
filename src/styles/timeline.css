@@ -176,12 +176,12 @@
   right: 0;
   transform: translateX(50%);
   top: 2rem;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--gradient-kirakira);
   border: 2px solid #fff;
-  box-shadow: 0 0 0 3px #fff;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--card-border);
   z-index: 2;
 }
 
