@@ -92,7 +92,7 @@
 .timeline-year-divider {
   display: flex;
   align-items: center;
-  padding: 1.5rem 0 0.5rem;
+  padding: 1rem 0;
   padding-left: calc(var(--line-pos) - 1.5rem);
 }
 
@@ -110,7 +110,7 @@
 
 .timeline-entries {
   position: relative;
-  padding-block: 0.5rem 1rem;
+  padding-block: 0 1rem;
   display: grid;
   gap: 1rem;
 }
