@@ -92,23 +92,7 @@
 .timeline-year-divider {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   padding: 1.5rem 0 0.5rem;
-}
-
-.timeline-year-divider::before,
-.timeline-year-divider::after {
-  content: '';
-  height: 1px;
-  background: var(--card-border);
-}
-
-.timeline-year-divider::before {
-  flex: 0 0 calc(var(--line-pos) - 2rem);
-}
-
-.timeline-year-divider::after {
-  flex: 1;
 }
 
 .year-text {
@@ -230,6 +214,7 @@
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.7);
   transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .timeline-card-inner:hover {
@@ -324,10 +309,6 @@
 
   .entry-left .timeline-date {
     text-align: left;
-  }
-
-  .timeline-year-divider::before {
-    flex: 0 0 0;
   }
 }
 
