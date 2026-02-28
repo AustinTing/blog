@@ -179,9 +179,9 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--gradient-kirakira);
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--card-border);
+  background: #fff;
+  border: 2px solid var(--card-border);
+  box-shadow: none;
   z-index: 2;
 }
 
