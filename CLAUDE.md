@@ -59,6 +59,8 @@ git subtree pull --prefix=references/astro-antfustyle-theme https://github.com/l
 
 ## 環境設定
 
+### 本機開發環境
+
 Node 與 openspec 透過 **nvm** 管理。`~/.zshenv` 已設定 nvm 初始化，讓非互動式 shell（包含 Claude Code 的 Bash tool）也能找到相關指令：
 
 ```bash
@@ -68,3 +70,13 @@ export NVM_DIR="$HOME/.nvm"
 ```
 
 openspec CLI 安裝於 node v24.13.1 的全域環境。升級 node 後需重新 `npm install -g openspec`。
+
+### Claude Code web 環境
+
+在 Claude Code web（`claude.ai/code`）的 sandbox 中，環境與本機不同：
+
+- **`$HOME` 為 `/root`**，`~/.zshenv` 不存在，nvm 初始化腳本不會自動執行
+- **nvm 安裝於 `/opt/nvm/nvm.sh`**（非 `~/.nvm`）
+- **Node v22.22.0 已直接掛載於 `/opt/node22/bin/`**，PATH 已包含此路徑，無需 nvm 即可直接使用 `node`、`npm`、`npx`、`pnpm`
+- 全域 npm 套件安裝位置：`/opt/node22/lib/node_modules/`
+- **openspec CLI 未安裝**（npm 上的 `openspec@0.0.0` 是空殼套件，無 binary）；openspec 工作流程須手動建立 artifact 檔案，或等待正式 CLI 可用
