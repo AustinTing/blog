@@ -93,6 +93,7 @@
   display: flex;
   align-items: center;
   padding: 1.5rem 0 0.5rem;
+  padding-left: calc(var(--line-pos) - 1.5rem);
 }
 
 .year-text {
@@ -166,6 +167,7 @@
 
 /* Left side (milestone articles) */
 .entry-left {
+  box-sizing: border-box;
   width: var(--line-pos);
   padding-right: 1.5rem;
 }
