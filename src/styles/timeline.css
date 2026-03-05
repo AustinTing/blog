@@ -70,7 +70,7 @@
    ======================== */
 
 .timeline {
-  --line-pos: 35%;
+  --line-pos: 45%;
 }
 
 /* Year group */
@@ -92,23 +92,8 @@
 .timeline-year-divider {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.5rem 0 0.5rem;
-}
-
-.timeline-year-divider::before,
-.timeline-year-divider::after {
-  content: '';
-  height: 1px;
-  background: var(--card-border);
-}
-
-.timeline-year-divider::before {
-  flex: 0 0 calc(var(--line-pos) - 2rem);
-}
-
-.timeline-year-divider::after {
-  flex: 1;
+  padding: 1rem 0;
+  padding-left: calc(var(--line-pos) - 1.5rem);
 }
 
 .year-text {
@@ -125,7 +110,7 @@
 
 .timeline-entries {
   position: relative;
-  padding-block: 0.5rem 1rem;
+  padding-block: 0 1rem;
   display: grid;
   gap: 1rem;
 }
@@ -182,6 +167,7 @@
 
 /* Left side (milestone articles) */
 .entry-left {
+  box-sizing: border-box;
   width: var(--line-pos);
   padding-right: 1.5rem;
 }
@@ -195,9 +181,9 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--gradient-kirakira);
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 2px var(--card-border);
+  background: #fff;
+  border: 2px solid var(--card-border);
+  box-shadow: none;
   z-index: 2;
 }
 
@@ -230,6 +216,8 @@
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.7);
   transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 .timeline-card-inner:hover {
@@ -324,10 +312,6 @@
 
   .entry-left .timeline-date {
     text-align: left;
-  }
-
-  .timeline-year-divider::before {
-    flex: 0 0 0;
   }
 }
 
