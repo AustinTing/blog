@@ -64,8 +64,8 @@
 }
 
 .filter-btn.filter-work.active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
 }
 
 .filter-btn.filter-life.active {
@@ -257,8 +257,8 @@
 }
 
 .badge-work {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
+  background: color-mix(in srgb, var(--accent-blue) 15%, transparent);
+  color: var(--accent-blue);
 }
 
 .badge-life {
