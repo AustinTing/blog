@@ -2,7 +2,7 @@
 
 ## 願景
 
-以 **Aha stack**（Astro + htmx + Alpine.js）打造功能完整的個人部落格。開發新功能時參考 `references/astro-antfustyle-theme` 的解法，自行重新實作。日常開發流程以 **openspec** 管理。
+以 **Aha stack**（Astro + htmx + Alpine.js）打造功能完整的個人部落格。開發新功能時參考 `references/astro-antfustyle-theme` 的解法，自行重新實作。日常開發流程以 **superpowers**（Claude Code plugin）管理。
 
 ## 已完成的基礎建設
 
